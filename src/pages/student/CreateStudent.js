@@ -1,6 +1,13 @@
 import {useNavigate} from "react-router-dom";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import axios from "axios";
+import * as Yup from 'yup';
+const validateUser = Yup.object().shape({
+    name: Yup.string()
+        .min(1, "To short")
+        .max(100, "To Long!")
+        .required("Required")
+})
 
 export default function CreateStudent(){
     const navigate = useNavigate()
@@ -13,7 +20,7 @@ export default function CreateStudent(){
                 username: '',
                 email: ''
 
-            }} onSubmit={(values)=>{
+            }} validationSchema={validateUser} onSubmit={(values)=>{
                 axios.post('https://jsonplaceholder.typicode.com/users', values)
                     .then(
                         axios.get('https://jsonplaceholder.typicode.com/users').then(
@@ -29,6 +36,7 @@ export default function CreateStudent(){
                 <Form>
                     <Field name={'id'} placeholder={'id'}></Field>
                     <Field name={'name'} placeholder={'name'}></Field>
+                    <ErrorMessage name={'name'}></ErrorMessage>
                     <Field name={'username'} placeholder={'username'}></Field>
                     <Field name={'email'} placeholder={'email'}></Field>
                     <button >Save</button>
