@@ -5,7 +5,10 @@ export default function CreateStudent(){
     return(
         <>
             <h1>Tao moi HV</h1>
-            <button onClick={()=>{navigate('/list-student')}}>Create</button>
+            <button onClick={()=>{navigate(
+                '/list-student',
+                {state:{id: 'ID01',name: 'KA' }}
+            )}}>Create</button>
         </>
     )
 }
