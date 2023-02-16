@@ -23,12 +23,7 @@ export default function CreateStudent(){
             }} validationSchema={validateUser} onSubmit={(values)=>{
                 axios.post('https://jsonplaceholder.typicode.com/users', values)
                     .then(
-                        axios.get('https://jsonplaceholder.typicode.com/users').then(
-                            res =>{
-                                console.log(res.data)
-                            }
-                        ),
-                        alert("thanh cong")
+                        navigate("/list-student")
                     )
             }
 
